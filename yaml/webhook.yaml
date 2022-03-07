@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webhook
+  namespace: kube-system
+  labels:
+    app: webhook
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: webhook
+      labels:
+        app: webhook
+    spec:
+      containers:
+        - name: webhook
+          image: hub.fastonetech.com/infra/webhook:20220307-172600
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: webhook
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webhook
+  namespace: kube-system
+spec:
+  selector:
+    app: webhook
+  ports:
+    - port: 443
+      targetPort: 8080
+  type: ClusterIP
+

@@ -1,0 +1,48 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: webhook
+  namespace: kube-system
+webhooks:
+  - name: webhook.kube-system.svc
+    namespaceSelector:
+      matchExpressions:
+        - key: type
+          operator: In
+          values: [ "tenant" ]
+    rules:
+      - operations: [ "CREATE" ]
+        apiGroups: [ "apps" ]
+        apiVersions: [ "v1" ]
+        resources: [ "deployments" ]
+    admissionReviewVersions: [ "v1","v1bate1" ]
+    clientConfig:
+      caBundle: |
+        LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURNVENDQWhtZ0F3SUJBZ0lVSDBtQk9lV1dt
+        UnhKUm9iSTlLR2F2RUtVWHFzd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0p6RWxNQ01HQTFVRUF3d2Na
+        MlZ1WlhKcFkxOTNaV0pvYjI5clgyRmtiV2x6YzJsdmJsOWpZVEFnRncweQpNakF6TURRd09UVTBN
+        amxhR0E4eU1qazFNVEl4T0RBNU5UUXlPVm93SnpFbE1DTUdBMVVFQXd3Y1oyVnVaWEpwClkxOTNa
+        V0pvYjI5clgyRmtiV2x6YzJsdmJsOWpZVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFE
+        Q0MKQVFvQ2dnRUJBS0FoeUN0MFdTZW5GdTJ5MmpLaDFtOExSVkpHUWExa2ZOMGNZT25wRGlSOHV2
+        OVFFVXdVMVVHRApvcUtjQmQ1eklqRGx6Mms4WTBTRUtnSFZ0Q1hZaFNWemNONjI1bFNxN25QR1Fo
+        VUJTU2Q5OEozZGMzMkcrY1lLCnAydFpUR3IyZlF0VXBSdlNCOWgwamVsdHVWcWpxM0dzVWVXTk9q
+        R1hDMndmRG9aYjdRK1dXUTJ4K3QxRlcwMWEKMnlDZDd1azVwUTJpRUthVEtLVW9NaE1lcTc1TlI3
+        VExUN0VOMnAvMmpCZGpRRE1zN25sTHd4bEluRzJWUGg0NQp5OFdLL3AwU1Q1MHpuUTVEOTJoOXk5
+        NWZFQTdDL0lPU05rdVNDeDliRXJCQUY5VE1IRGxkOStFVjdYYWtWZ1pQCmxOVnkwT1A3R2lmei9q
+        aGJVR0VWbEhwd2x6YkJOOE1DQXdFQUFhTlRNRkV3SFFZRFZSME9CQllFRkh3UkJOcWMKWklrUkhF
+        c2RaYmptdjZWc2lwYnBNQjhHQTFVZEl3UVlNQmFBRkh3UkJOcWNaSWtSSEVzZFpiam12NlZzaXBi
+        cApNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMQlFBRGdnRUJBQ3hVaGVl
+        VE03QnE1VW9ZCjFxSFVxVHlrR3J6eW8rM0FCZjNKWWpKUWVuVEcyTlhLWVd2QWNGRlM1VFhKaXlK
+        K2VWMWhRbGpaY2w3M1lQQlYKU2dnRC9nYkNnMHdUSHU0SC9WL3VUcnFFa3BCcklNS0QzM0l4aDdu
+        bTA1dFVlR2pCZVh1YXJCZ2toZ1kxN0ZWeAp6d3FlaGN3akozZ1hFRnoyU3ZJeWNiaVFISkJ5bjEv
+        Rjk4RzJYM2xoUjRxL3h6WDhRcnRqOGRkeGV1ZVBSWE91ClpaTGN4OEFKMDFLTlhJRjZLNWJQZ1Y5
+        S01qTGlUbWpmaHVFU21DTXVGUk1jUVh5TllFV2x1bkFrR0JTK0VFTEIKWDZUNGNmME1BWFNZQzhu
+        elF0cXcrWFFRbDd0bkhHOFNzSEpETW5yVXV3d3lCbENIRGVhVzJ1K3RDcjl3b2pjeApseTY4R0lB
+        PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+      service:
+        name: webhook
+        namespace: kube-system
+        path: /deployments
+    sideEffects: NoneOnDryRun
+    failurePolicy: Fail
+

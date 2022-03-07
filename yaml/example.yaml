@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hsx
+  labels:
+    type: tenant
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test
+  namespace: hsx
+  labels:
+    app: test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: test
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: test
+          image: hub.gok8s.fun/infra/file-access:v1.1.1.1
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: test
