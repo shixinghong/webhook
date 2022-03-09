@@ -12,8 +12,6 @@ import (
 
 const exp = `^(hub.gok8s.fun)(.*file-access)`
 
-//var patchSpec = `[{"op":"patch", "path":"/spec","value":{"spec":%v}]`
-
 type patchSpec struct {
 	Option string                `json:"op"`
 	Path   string                `json:"path"`
