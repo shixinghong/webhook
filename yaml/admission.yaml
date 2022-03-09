@@ -11,7 +11,7 @@ webhooks:
           operator: In
           values: [ "tenant" ]
     rules:
-      - operations: [ "CREATE" ]
+      - operations: [ "CREATE","UPDATE" ]
         apiGroups: [ "apps" ]
         apiVersions: [ "v1" ]
         resources: [ "deployments" ]

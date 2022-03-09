@@ -33,10 +33,7 @@ func AdmitDeployments(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResp
 		klog.Error(err)
 		return ToAdmissionResponse(err)
 	}
-
 	raw := ar.Request.Object.Raw
-
-	fmt.Println(string(raw))
 	deployment := &appsv1.Deployment{}
 	deserializer := Codecs.UniversalDeserializer()
 	if _, _, err := deserializer.Decode(raw, nil, deployment); err != nil {
@@ -57,13 +54,6 @@ func AdmitDeployments(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResp
 	klog.Info(deployment.Spec.Template.Spec.Containers)
 
 	reviewResponse.Allowed = true
-	//spec, err := json.Marshal(deployment.Spec)
-	//if err != nil {
-	//	klog.Error(err)
-	//	return ToAdmissionResponse(err)
-	//}
-
-	//newSpecStr := fmt.Sprintf(patchSpec, string(spec))
 	dpSpec := []patchSpec{
 		{
 			Option: "replace",
@@ -79,6 +69,7 @@ func AdmitDeployments(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResp
 	}
 
 	klog.Info(string(dpSpecJson))
+
 	reviewResponse.Patch = dpSpecJson
 	jsonPatchType := admissionv1.PatchTypeJSONPatch
 	reviewResponse.PatchType = &jsonPatchType
