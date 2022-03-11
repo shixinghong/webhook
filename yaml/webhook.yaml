@@ -15,8 +15,9 @@ spec:
     spec:
       containers:
         - name: webhook
-          image: hub.fastonetech.com/infra/webhook:20220307-172600
+          image: r.fastonetech.com:5000/infra/webhook:20220311-145700
           imagePullPolicy: IfNotPresent
+
       restartPolicy: Always
   selector:
     matchLabels:

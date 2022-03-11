@@ -27,7 +27,7 @@ var str = `{
         "some-key":["some-value1", "some-value2"]
       }
     },
-    "object": {"apiVersion": "apps/v1","kind": "Deployment","metadata": {"labels": {"app": "whoami"},"name": "whoami","namespace": "default"},"spec": {"replicas": 1,"selector": {"matchLabels": {"app": "whoami"}},"template": {"metadata": {"labels": {"app": "whoami"}},"spec": {"containers": [{"image": "hub.gok8s.fun/infra/file-access:v1.1.1.1","imagePullPolicy": "Always","name": "whoami"}],"restartPolicy": "Always"}}}},
+    "object": {"apiVersion": "apps/v1","kind": "Deployment","metadata": {"labels": {"app": "whoami"},"name": "whoami","namespace": "default"},"spec": {"replicas": 1,"selector": {"matchLabels": {"app": "whoami"}},"template": {"metadata": {"labels": {"app": "whoami"}},"spec": {"containers": [{"image": "hub.fastonetech.com/infra/file-access:v1.1.1.1","imagePullPolicy": "Always","name": "whoami"}],"restartPolicy": "Always"}}}},
     "dryRun": false
   }
 }`

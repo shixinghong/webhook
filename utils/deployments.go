@@ -10,7 +10,7 @@ import (
 	"regexp"
 )
 
-const exp = `^(hub.gok8s.fun)(.*file-access)`
+const exp = `^(hub.myit.fun)(.*file-access)`
 
 type patchSpec struct {
 	Option string                `json:"op"`
@@ -45,10 +45,12 @@ func AdmitDeployments(ar admissionv1.AdmissionReview) *admissionv1.AdmissionResp
 	reviewResponse := admissionv1.AdmissionResponse{}
 	containers := deployment.Spec.Template.Spec.Containers
 	for i, container := range containers {
-		img := regexp.MustCompile(exp).ReplaceAllString(container.Image, "hub.myit.fun$2")
+		img := regexp.MustCompile(exp).ReplaceAllString(container.Image, "r.myit.fun:5000$2")
 		containers[i].Image = img
 	}
 
+	// 测试注入docker in docker 容器
+	//newDeployment := InjectDockerInDockerContainer(deployment)
 	klog.Info(deployment.Spec.Template.Spec.Containers)
 
 	reviewResponse.Allowed = true

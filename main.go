@@ -62,9 +62,13 @@ func serveDeployments(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/deployments", serveDeployments)
-	klog.Info("server start")
-	if err := http.ListenAndServeTLS(":8080", cert, key, nil); err != nil {
+	//http.HandleFunc("/", serveDeployments)
+	//klog.Info("server start")
+	//if err := http.ListenAndServeTLS(":8080", cert, key, nil); err != nil {
+	//	klog.Exit(err)
+	//}
+	http.HandleFunc("/", serveDeployments)
+	if err := http.ListenAndServe(":8080", nil); err != nil {
 		klog.Exit(err)
 	}
 }
